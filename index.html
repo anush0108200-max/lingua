@@ -94,6 +94,7 @@ nav button.on{color:var(--pr);background:var(--lv)}nav button.on span{transform:
 <div id="root"><p style="padding:24px">Загрузка…</p></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="hsk1.js"></script>
 <script>
 if(!window.React||!window.ReactDOM){document.getElementById('root').textContent='Не удалось загрузить приложение. Проверьте интернет и обновите страницу.';throw 0}
 const{useState,useEffect,useMemo}=React;
@@ -368,6 +369,7 @@ function App(){
   h('main',{className:'app'+(CRS==='en'?' en':'')},h(C,{s,setS,add,go,v,st,sw,key:v.tab+':'+(v.sc??'')})),
   h('nav',null,TABS.map(([k,e,n])=>h('button',{key:k,className:v.tab===k?'on':'','aria-label':n,onClick:()=>go(k)},h('span',null,e),n))),
   t&&h('div',{className:'toast',role:'status'},t))}
+try{window.HSK1&&HSK1.install({h,useState,PG,Wr,Sp,speak,sh,say:m=>say(m)})}catch(e){}
 ReactDOM.createRoot(document.getElementById('root')).render(h(App));
 </script>
 </body>
