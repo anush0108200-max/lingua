@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3D6BFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lingua">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Lingua — китайский с нуля</title>
+<style>
+:root{--bg:#F4F1FF;--cd:#fff;--tx:#1F2547;--mu:#6B7194;--pr:#3D6BFF;--pd:#2A52D6;--lv:#E9E3FF;--ok:#27B36F;--bd:#F2545B;--ln:#DDD6F5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14162B;--cd:#1F2240;--tx:#F1F2FF;--mu:#9EA3C9;--pr:#5B7FFF;--pd:#3F62E0;--lv:#2C2F5C;--ln:#363A6C}}
+:root[data-theme="dark"]{--bg:#14162B;--cd:#1F2240;--tx:#F1F2FF;--mu:#9EA3C9;--pr:#5B7FFF;--pd:#3F62E0;--lv:#2C2F5C;--ln:#363A6C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input{font-family:inherit}
+.app{max-width:520px;margin:0 auto;padding:18px 16px 110px}
+.pg,.pop{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+h1{font-size:26px;margin:0 0 14px}h2{font-size:18px;margin:18px 0 10px}p{margin:8px 0}
+.hz{font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+.mu{color:var(--mu)}.sm{font-size:13px;margin-top:8px}
+.cd{background:var(--cd);border:2px solid var(--ln);border-radius:20px;padding:16px;margin-bottom:12px}
+.btn{display:block;width:100%;min-height:54px;border:0;border-radius:16px;background:var(--pr);color:#fff;font-weight:700;font-size:17px;box-shadow:0 4px 0 var(--pd);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--pd)}
+.btn:disabled{opacity:.5;box-shadow:none}
+.btn.s{background:var(--lv);color:var(--pr);box-shadow:0 4px 0 var(--ln)}
+.btn.g{background:var(--ok);box-shadow:0 4px 0 #1D8A54}
+.btn.r{background:var(--bd);box-shadow:0 4px 0 #B83B41}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.bar{height:12px;background:var(--lv);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pr),#9B7BFF);border-radius:9px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.hero{background:linear-gradient(135deg,var(--pr),#8B6CFF);color:#fff;border-radius:24px;padding:20px;margin-bottom:14px}
+.hero h1{margin:4px 0 14px;color:#fff}
+.hero .bar{background:rgba(255,255,255,.3)}.hero .bar i{background:#fff}
+.gl{display:flex;justify-content:space-between;margin-bottom:8px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:10px;margin-bottom:14px}
+.st{background:var(--cd);border:2px solid var(--ln);border-radius:18px;padding:12px 6px;text-align:center}
+.st b{display:block;font-size:20px}.st span{font-size:12px;color:var(--mu)}
+.les{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--tx);cursor:pointer;transition:transform .15s}
+.les:active{transform:scale(.98)}.les>div{flex:1}.em{font-size:32px}
+.les .bar{margin-top:8px;height:8px}
+.bk{border:0;background:none;color:var(--pr);font-size:16px;font-weight:700;padding:8px 0;cursor:pointer}
+.sp{width:46px;height:46px;flex:none;border-radius:50%;border:0;background:var(--lv);font-size:20px;cursor:pointer;transition:transform .1s}
+.sp:active{transform:scale(.9)}.bigsp{width:96px;height:96px;font-size:44px}
+.w{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px solid var(--ln);cursor:pointer}
+.w:last-child{border:0}.w .z{font-size:28px;min-width:64px}.w>div{flex:1}
+.ex{display:flex;align-items:center;gap:12px}.ex>div{flex:1}.big{font-size:24px}
+.pin{color:var(--pr);font-weight:700;font-size:20px;margin:4px 0 12px}
+.pin2{color:var(--pr)}
+.huge{font-size:72px;line-height:1.1;margin-bottom:6px}
+.tr{font-size:24px;font-weight:700;margin:14px 0}
+.fc{text-align:center;padding:24px 16px;min-height:290px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.fc .btn{margin-top:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px}
+.chip{flex:none;min-width:48px;min-height:44px;border:2px solid var(--ln);border-radius:14px;background:var(--cd);font-size:20px;cursor:pointer;color:var(--tx);transition:background .2s}
+.chip.on{background:var(--lv);border-color:var(--pr)}
+.o{display:block;width:100%;min-height:56px;margin-bottom:10px;border:2px solid var(--ln);border-radius:16px;background:var(--cd);color:var(--tx);font-size:18px;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s}
+.o:active{transform:scale(.98)}
+.o.ok{border-color:var(--ok);background:rgba(39,179,111,.18)}
+.o.no{border-color:var(--bd);background:rgba(242,84,91,.18);animation:sh .3s}
+.ch{min-width:48px;min-height:52px;padding:6px 12px;margin:4px;border:2px solid var(--ln);border-radius:14px;background:var(--cd);color:var(--tx);font-size:26px;cursor:pointer}
+.ans{min-height:70px;border-bottom:3px solid var(--ln);margin:6px 0 14px}.bank{margin-bottom:12px}
+.fb{padding:12px 14px;border-radius:14px;margin:12px 0;font-weight:700;animation:in .3s}
+.fb.ok{background:rgba(39,179,111,.18)}.fb.no{background:rgba(242,84,91,.18)}
+.in{width:100%;min-height:52px;border:2px solid var(--ln);border-radius:14px;padding:0 14px;font-size:17px;background:var(--cd);color:var(--tx);margin:6px 0 12px}
+.warn{background:#FFF4D6;color:#6B4A00;border-color:#F3D27A}
+.prow{display:flex;justify-content:space-between;margin:12px 0 6px}
+nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;display:flex;background:var(--cd);border-top:2px solid var(--ln);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;border:0;background:none;color:var(--mu);font-size:10px;font-weight:600;padding:4px 0;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;cursor:pointer;transition:background .2s,color .2s}
+nav button span{font-size:22px;transition:transform .2s}
+nav button.on{color:var(--pr);background:var(--lv)}nav button.on span{transform:scale(1.15)}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:max-content;max-width:90%;background:#1F2547;color:#fff;padding:12px 16px;border-radius:14px;z-index:9;animation:in .3s}
+.en .huge{font-size:44px;overflow-wrap:anywhere}.en .w .z{font-size:20px;font-weight:700;min-width:92px;max-width:38%;overflow-wrap:anywhere}.en .ch{font-size:18px;min-width:40px}
+.lk{opacity:.55}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="root"><p style="padding:24px">Загрузка…</p></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+if(!window.React||!window.ReactDOM){document.getElementById('root').textContent='Не удалось загрузить приложение. Проверьте интернет и обновите страницу.';throw 0}
+const{useState,useEffect,useMemo}=React;
+try{if(/tgWebApp/.test(location.hash)||window.TelegramWebviewProxy){const t=document.createElement('script');t.src='https://telegram.org/js/telegram-web-app.js';t.onload=()=>{try{const w=Telegram.WebApp;w.ready();w.expand();w.setHeaderColor('#3D6BFF')}catch(e){}};document.head.appendChild(t)}}catch(e){}
+let LANG='ru';
+const tr=s=>{if(LANG!=='tg'||typeof s!=='string')return s;for(const[a,b]of DL)s=s.split(a).join(b);return s};
+const h=(t,p,...c)=>React.createElement(t,p&&(p.placeholder||p['aria-label'])?{...p,placeholder:tr(p.placeholder),'aria-label':tr(p['aria-label'])}:p,...c.map(tr));
+try{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d'),g=x.createLinearGradient(0,0,180,180);g.addColorStop(0,'#3D6BFF');g.addColorStop(1,'#8B6CFF');x.fillStyle=g;x.fillRect(0,0,180,180);x.fillStyle='#fff';x.font='bold 112px "PingFang SC","Noto Sans SC",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('语',90,98);const l=document.createElement('link');l.rel='apple-touch-icon';l.href=c.toDataURL('image/png');document.head.appendChild(l)}catch(e){}
+const L=[
+["Приветствия","👋","你好|nǐ hǎo|привет;谢谢|xièxie|спасибо;不客气|bú kèqi|не за что;再见|zàijiàn|до свидания;对不起|duìbuqǐ|извините;没关系|méi guānxi|ничего страшного;请|qǐng|пожалуйста","你好，老师！|Nǐ hǎo, lǎoshī!|Здравствуйте, учитель!;谢谢你！|Xièxie nǐ!|Спасибо тебе!"],
+["Знакомство","🤝","我|wǒ|я;你|nǐ|ты;他|tā|он;她|tā|она;叫|jiào|зваться;名字|míngzi|имя;是|shì|быть, являться;人|rén|человек;朋友|péngyou|друг","我叫安娜。|Wǒ jiào Ānnà.|Меня зовут Анна.;你好，我是大卫。|Nǐ hǎo, wǒ shì Dàwèi.|Привет, я Давид."],
+["Числа","🔢","一|yī|один;二|èr|два;三|sān|три;四|sì|четыре;五|wǔ|пять;六|liù|шесть;七|qī|семь;八|bā|восемь;九|jiǔ|девять;十|shí|десять","我今年八岁。|Wǒ jīnnián bā suì.|Мне восемь лет.;他有三个朋友。|Tā yǒu sān gè péngyou.|У него три друга."],
+["Семья","👨‍👩‍👧","爸爸|bàba|папа;妈妈|māma|мама;哥哥|gēge|старший брат;姐姐|jiějie|старшая сестра;弟弟|dìdi|младший брат;妹妹|mèimei|младшая сестра;家|jiā|дом, семья","这是我妈妈。|Zhè shì wǒ māma.|Это моя мама.;我爱我的家。|Wǒ ài wǒ de jiā.|Я люблю свою семью."],
+["Еда","🍚","米饭|mǐfàn|рис;面条|miàntiáo|лапша;面包|miànbāo|хлеб;鸡蛋|jīdàn|яйцо;苹果|píngguǒ|яблоко;肉|ròu|мясо;鱼|yú|рыба;吃|chī|есть","我喜欢吃面条。|Wǒ xǐhuan chī miàntiáo.|Я люблю лапшу.;我想吃米饭。|Wǒ xiǎng chī mǐfàn.|Хочу съесть рис."],
+["Напитки","🍵","水|shuǐ|вода;茶|chá|чай;咖啡|kāfēi|кофе;牛奶|niúnǎi|молоко;果汁|guǒzhī|сок;喝|hē|пить","我想喝茶。|Wǒ xiǎng hē chá.|Хочу выпить чаю.;请给我一杯水。|Qǐng gěi wǒ yì bēi shuǐ.|Дайте мне стакан воды."],
+["Животные","🐱","猫|māo|кошка;狗|gǒu|собака;鸟|niǎo|птица;马|mǎ|лошадь;兔子|tùzi|кролик;熊猫|xióngmāo|панда","我有一只猫。|Wǒ yǒu yì zhī māo.|У меня есть кошка.;熊猫很可爱。|Xióngmāo hěn kě’ài.|Панда очень милая."],
+["Цвета","🎨","红色|hóngsè|красный;蓝色|lánsè|синий;绿色|lǜsè|зелёный;黄色|huángsè|жёлтый;白色|báisè|белый;黑色|hēisè|чёрный;紫色|zǐsè|фиолетовый","我喜欢蓝色。|Wǒ xǐhuan lánsè.|Мне нравится синий.;这是红色的。|Zhè shì hóngsè de.|Это красное."],
+["Время","⏰","今天|jīntiān|сегодня;明天|míngtiān|завтра;昨天|zuótiān|вчера;现在|xiànzài|сейчас;点|diǎn|час (о времени);分钟|fēnzhōng|минута;早上|zǎoshang|утро;晚上|wǎnshang|вечер","现在三点。|Xiànzài sān diǎn.|Сейчас три часа.;明天见！|Míngtiān jiàn!|До завтра!"],
+["Дни недели","📅","星期一|xīngqīyī|понедельник;星期二|xīngqī’èr|вторник;星期三|xīngqīsān|среда;星期四|xīngqīsì|четверг;星期五|xīngqīwǔ|пятница;星期六|xīngqīliù|суббота;星期天|xīngqītiān|воскресенье","今天星期五。|Jīntiān xīngqīwǔ.|Сегодня пятница.;星期六我休息。|Xīngqīliù wǒ xiūxi.|В субботу я отдыхаю."],
+["Учёба","📚","学生|xuésheng|ученик;老师|lǎoshī|учитель;学校|xuéxiào|школа;书|shū|книга;学习|xuéxí|учиться;汉语|Hànyǔ|китайский язык;写|xiě|писать;读|dú|читать","我学习汉语。|Wǒ xuéxí Hànyǔ.|Я учу китайский.;他是老师。|Tā shì lǎoshī.|Он учитель."],
+["Повседневная жизнь","🏠","睡觉|shuìjiào|спать;工作|gōngzuò|работать;去|qù|идти, ехать;买|mǎi|покупать;看|kàn|смотреть;爱|ài|любить;喜欢|xǐhuan|нравиться","我想睡觉。|Wǒ xiǎng shuìjiào.|Я хочу спать.;我喜欢看书。|Wǒ xǐhuan kàn shū.|Я люблю читать книги."]
+];
+const TN='Салом ва аҳволпурсӣ|Шиносоӣ|Рақамҳо|Оила|Хӯрок|Нӯшокиҳо|Ҳайвонот|Рангҳо|Вақт|Рӯзҳои ҳафта|Омӯзиш|Зиндагии ҳаррӯза'.split('|');
+const TG=Object.fromEntries('你好|салом;谢谢|ташаккур;不客气|намеарзад;再见|хайр;对不起|бубахшед;没关系|ҳеҷ гап не;请|лутфан;我|ман;你|ту;他|ӯ (мард);她|ӯ (зан);叫|ном доштан;名字|ном;是|будан;人|одам;朋友|дӯст;一|як;二|ду;三|се;四|чор;五|панҷ;六|шаш;七|ҳафт;八|ҳашт;九|нӯҳ;十|даҳ;爸爸|падар;妈妈|модар;哥哥|бародари калонӣ;姐姐|хоҳари калонӣ;弟弟|бародари хурдӣ;妹妹|хоҳари хурдӣ;家|хона, оила;米饭|биринҷ;面条|угро;面包|нон;鸡蛋|тухм;苹果|себ;肉|гӯшт;鱼|моҳӣ;吃|хӯрдан;水|об;茶|чой;咖啡|қаҳва;牛奶|шир;果汁|шарбат;喝|нӯшидан;猫|гурба;狗|саг;鸟|парранда;马|асп;兔子|харгӯш;熊猫|панда;红色|сурх;蓝色|кабуд;绿色|сабз;黄色|зард;白色|сафед;黑色|сиёҳ;紫色|бунафш;今天|имрӯз;明天|фардо;昨天|дирӯз;现在|ҳозир;点|соат;分钟|дақиқа;早上|саҳар;晚上|шом;星期一|душанбе;星期二|сешанбе;星期三|чоршанбе;星期四|панҷшанбе;星期五|ҷумъа;星期六|шанбе;星期天|якшанбе;学生|хонанда;老师|муаллим;学校|мактаб;书|китоб;学习|омӯхтан;汉语|забони хитоӣ;写|навиштан;读|хондан;睡觉|хобидан;工作|кор кардан;去|рафтан;买|харидан;看|дидан;爱|дӯст доштан;喜欢|маъқул будан;你好，老师！|Салом, муаллим!;谢谢你！|Ташаккур ба ту!;我叫安娜。|Номи ман Анна.;你好，我是大卫。|Салом, ман Довуд ҳастам.;我今年八岁。|Ман ҳашт сола ҳастам.;他有三个朋友。|Ӯ се дӯст дорад.;这是我妈妈。|Ин модари ман аст.;我爱我的家。|Ман оилаи худро дӯст медорам.;我喜欢吃面条。|Ман угро хӯрданро дӯст медорам.;我想吃米饭。|Ман мехоҳам биринҷ бихӯрам.;我想喝茶。|Ман мехоҳам чой бинӯшам.;请给我一杯水。|Лутфан ба ман як пиёла об диҳед.;我有一只猫。|Ман як гурба дорам.;熊猫很可爱。|Панда хеле ширин аст.;我喜欢蓝色。|Ранги кабуд ба ман маъқул аст.;这是红色的。|Ин сурх аст.;现在三点。|Ҳозир соати се аст.;明天见！|То фардо!;今天星期五。|Имрӯз ҷумъа аст.;星期六我休息。|Рӯзи шанбе ман истироҳат мекунам.;我学习汉语。|Ман забони хитоӣ меомӯзам.;他是老师。|Ӯ муаллим аст.;我想睡觉。|Ман мехоҳам бихобам.;我喜欢看书。|Ман китоб хонданро дӯст медорам.'.split(';').map(s=>s.split('|')));
+const DL='Главная§Асосӣ|Уроки§Дарсҳо|Карточки§Кортҳо|Тесты§Тестҳо|Звук§Садо|Прогресс сброшен§Пешрафт барқарор шуд|Прогресс§Пешрафт|Профиль§Профил|Привет§Салом|Продолжим?§Идома диҳем?|Цель дня§Ҳадафи рӯз|🎉 Цель на сегодня выполнена!§🎉 Ҳадафи имрӯза иҷро шуд!|слов выучено§калимаи омӯхташуда|дней подряд§рӯз пай дар пай|▶ Продолжить: §▶ Идома: |🃏 Повторить слова§🃏 Такрори калимаҳо|🃏 Повторить§🃏 Такрор|🔁 Повторить§🔁 Такрор|🎯 Быстрый тест§🎯 Тести зуд|← Все уроки§← Ҳамаи дарсҳо|Примеры предложений§Намунаи ҷумлаҳо|🃏 Карточки§🃏 Кортҳо| из § аз | слов§ калима|Осталось повторить: §Бояд такрор шавад: |Показать перевод§Нишон додани тарҷума|✅ Знаю§✅ Медонам|Все слова выучены!§Ҳамаи калимаҳо омӯхта шуданд!|Можно пройти тест или повторить набор заново.§Метавонед тест супоред ё аз нав оғоз кунед.|Начать заново§Аз нав оғоз кардан|Пройти тест§Тест супоридан|Все§Ҳама|Выберите перевод§Тарҷумаро интихоб кунед|Выберите иероглиф§Иероглифро интихоб кунед|Нажмите 🔊 и выберите перевод§Тугмаи 🔊-ро пахш карда, тарҷумаро интихоб кунед|Составьте предложение§Ҷумла бисозед|🎉 Верно! +10 XP§🎉 Дуруст! +10 XP|❌ Верный ответ: §❌ Ҷавоби дуруст: |Результат§Натиҷа|Далее§Минбаъд|Проверить§Санҷидан|✕ Выйти§✕ Баромадан|Верно: §Дуруст: |Отличный результат! Тест засчитан.§Натиҷаи аъло! Тест ҳисоб шуд.|Нужно 70%, чтобы засчитать тест. Повторите слова и попробуйте снова.§Барои ҳисоб шудан 70% лозим аст. Калимаҳоро такрор карда, боз кӯшиш кунед.|🔁 Ещё раз§🔁 Боз як бор|К списку тестов§Ба рӯйхати тестҳо|Микс§Омехта|Вопросы из всех уроков§Саволҳо аз ҳамаи дарсҳо|Лучший результат: §Натиҷаи беҳтарин: |Ещё не пройден§Ҳоло гузашта нашудааст|Произношение§Талаффуз|⚠️ Этот браузер не поддерживает озвучивание. Откройте приложение в Chrome или Safari.§⚠️ Ин браузер садодиҳиро дастгирӣ намекунад. Барномаро дар Chrome ё Safari кушоед.|🔊 Прослушать ещё раз§🔊 Боз шунидан|🐢 Медленное произношение: §🐢 Талаффузи суст: |выкл§ғайрифаъол|вкл§фаъол|Голос: §Овоз: |Китайский голос не найден — используется голос по умолчанию (zh-CN).§Овози чинӣ ёфт нашуд — овози пешфарз истифода мешавад (zh-CN).|Поиск: иероглиф, пиньинь, перевод§Ҷустуҷӯ: иероглиф, пинин, тарҷума|Ничего не найдено§Чизе ёфт нашуд|Озвучивание не поддерживается в этом браузере.§Садодиҳӣ дар ин браузер дастгирӣ намешавад.|Китайский голос не найден. Добавьте его в настройках устройства («Язык и речь»).§Овози чинӣ ёфт нашуд. Онро дар танзимоти дастгоҳ илова кунед.|Не удалось воспроизвести звук. Проверьте громкость и настройки речи.§Садо пахш нашуд. Баландии садо ва танзимоти нутқро санҷед.|Ошибка озвучивания. Попробуйте ещё раз.§Хатои садодиҳӣ. Боз кӯшиш кунед.|Курс HSK 1 пройден на§Курси HSK 1 гузашта шуд ба андозаи|тестов сдано§тест супорида шуд|XP всего§XP ҳама|XP сегодня§XP имрӯз|По урокам§Аз рӯи дарсҳо|Имя ученика§Номи хонанда|Как вас зовут?§Номи шумо чист?|Уровень§Дараҷа|Новичок§Навомӯз|Продолжающий§Идомадиҳанда|Пиньинь на карточках скрыт, пока вы не покажете перевод.§Пинин дар кортҳо то нишон додани тарҷума пинҳон аст.|Пиньинь на карточках виден всегда.§Пинин дар кортҳо ҳамеша намоён аст.|Ежедневная цель§Ҳадафи ҳаррӯза|Будут удалены XP, серия, выученные слова и результаты тестов. Продолжить?§XP, силсила, калимаҳои омӯхташуда ва натиҷаҳои тестҳо нест карда мешаванд. Идома диҳем?|Отмена§Бекор кардан|🗑 Сбросить прогресс§🗑 Барқарор кардани пешрафт|Сбросить§Барқарор кардан|Английский голос не найден. Добавьте его в настройках устройства («Язык и речь»).§Овози англисӣ ёфт нашуд. Онро дар танзимоти дастгоҳ илова кунед.|Английский голос не найден — используется голос по умолчанию (en-US).§Овози англисӣ ёфт нашуд — овози пешфарз истифода мешавад (en-US).|Выберите слово§Калимаро интихоб кунед|Поиск: слово или перевод§Ҷустуҷӯ: калима ё тарҷума|Курс English пройден на§Курси English гузашта шуд ба андозаи'.split('|').map(s=>s.split('§')).sort((a,b)=>b[0].length-a[0].length);
+const bld=(A,en)=>A.map((l,i)=>({i,get n(){const q=l[0].split('|');return LANG==='tg'?(en?q[1]:TN[i]||q[0]):q[0]},e:l[1],w:l[2].split(';').map((s,j)=>{const[z,p,r,t]=s.split('|');return{id:i*20+j,z,p,get r(){return LANG==='tg'?t||TG[z]||r:r}}}),x:l[3].split(';').map(s=>{const[z,p,r,t]=s.split('|');return{z,p,get r(){return LANG==='tg'?t||TG[z]||r:r}}})}));
+const E=[
+["Приветствия|Саломҳо","👋","hello|həˈloʊ|привет|салом;goodbye|ɡʊdˈbaɪ|до свидания|хайр;please|pliːz|пожалуйста|лутфан;thank you|θæŋk juː|спасибо|ташаккур;sorry|ˈsɑːri|извините|бубахшед;yes|jes|да|ҳа","Hello, my name is Anna.||Привет, меня зовут Анна.|Салом, номи ман Анна аст.;Thank you very much!||Большое спасибо!|Ташаккури зиёд!"],
+["Числа|Рақамҳо","🔢","one|wʌn|один|як;two|tuː|два|ду;three|θriː|три|се;four|fɔːr|четыре|чор;five|faɪv|пять|панҷ;ten|ten|десять|даҳ","I have two brothers.||У меня два брата.|Ман ду бародар дорам.;It is five o’clock.||Сейчас пять часов.|Соат панҷ аст."],
+["Семья|Оила","👨‍👩‍👧","mother|ˈmʌðər|мама|модар;father|ˈfɑːðər|папа|падар;brother|ˈbrʌðər|брат|бародар;sister|ˈsɪstər|сестра|хоҳар;friend|frend|друг|дӯст;family|ˈfæməli|семья|оила","This is my mother.||Это моя мама.|Ин модари ман аст.;I love my family.||Я люблю свою семью.|Ман оилаи худро дӯст медорам."],
+["Еда и напитки|Хӯрок ва нӯшокиҳо","🍎","bread|bred|хлеб|нон;water|ˈwɔːtər|вода|об;apple|ˈæpl|яблоко|себ;milk|mɪlk|молоко|шир;tea|tiː|чай|чой;rice|raɪs|рис|биринҷ","I like apples.||Я люблю яблоки.|Ман себро дӯст медорам.;Can I have some water?||Можно мне воды?|Ба ман каме об медиҳед?"],
+["Распорядок дня|Тартиби рӯз","⏰","breakfast|ˈbrekfəst|завтрак|нонушта;lunch|lʌntʃ|обед|хӯроки нисфирӯзӣ;dinner|ˈdɪnər|ужин|хӯроки шом;sleep|sliːp|спать|хобидан;work|wɜːrk|работать|кор кардан;study|ˈstʌdi|учиться|омӯхтан","I have breakfast at seven.||Я завтракаю в семь.|Ман соати ҳафт нонушта мекунам.;She works every day.||Она работает каждый день.|Вай ҳар рӯз кор мекунад."],
+["Места в городе|Ҷойҳо дар шаҳр","🏙️","house|haʊs|дом|хона;school|skuːl|школа|мактаб;shop|ʃɑːp|магазин|мағоза;park|pɑːrk|парк|боғ;hospital|ˈhɑːspɪtl|больница|беморхона;station|ˈsteɪʃn|вокзал|истгоҳ","The shop is near the park.||Магазин рядом с парком.|Мағоза назди боғ аст.;Where is the station?||Где вокзал?|Истгоҳ дар куҷост?"],
+["Погода|Обу ҳаво","☀️","sun|sʌn|солнце|офтоб;rain|reɪn|дождь|борон;snow|snoʊ|снег|барф;hot|hɑːt|жаркий|гарм;cold|koʊld|холодный|сард;wind|wɪnd|ветер|шамол","It is cold today.||Сегодня холодно.|Имрӯз сард аст.;I like snow.||Я люблю снег.|Ман барфро дӯст медорам."],
+["Покупки|Харид","🛍️","buy|baɪ|покупать|харидан;sell|sel|продавать|фурӯхтан;price|praɪs|цена|нарх;cheap|tʃiːp|дешёвый|арзон;expensive|ɪkˈspensɪv|дорогой|гарон;money|ˈmʌni|деньги|пул","How much is this?||Сколько это стоит?|Ин чанд пул аст?;It is too expensive.||Это слишком дорого.|Ин хеле гарон аст."],
+["Путешествия|Сафар","✈️","ticket|ˈtɪkɪt|билет|чипта;airport|ˈerpɔːrt|аэропорт|фурудгоҳ;luggage|ˈlʌɡɪdʒ|багаж|бағоҷ;passport|ˈpæspɔːrt|паспорт|шиноснома;hotel|hoʊˈtel|отель|меҳмонхона;journey|ˈdʒɜːrni|путешествие|сафар","I need to buy a ticket.||Мне нужно купить билет.|Ман бояд чипта харам.;The flight leaves at nine.||Рейс вылетает в девять.|Парвоз соати нӯҳ ҳаракат мекунад."],
+["Здоровье|Саломатӣ","🩺","headache|ˈhedeɪk|головная боль|дарди сар;doctor|ˈdɑːktər|врач|духтур;medicine|ˈmedsn|лекарство|дору;tired|ˈtaɪərd|уставший|хаста;healthy|ˈhelθi|здоровый|солим;pain|peɪn|боль|дард","I have a headache.||У меня болит голова.|Сарам дард мекунад.;You should see a doctor.||Вам стоит обратиться к врачу.|Шумо бояд ба духтур муроҷиат кунед."],
+["Работа|Кор","💼","job|dʒɑːb|работа|кор;meeting|ˈmiːtɪŋ|встреча|мулоқот;boss|bɔːs|начальник|роҳбар;experience|ɪkˈspɪriəns|опыт|таҷриба;skill|skɪl|навык|малака;salary|ˈsæləri|зарплата|маош","I have a meeting at ten.||У меня встреча в десять.|Ман соати даҳ мулоқот дорам.;She has a lot of experience.||У неё большой опыт.|Вай таҷрибаи зиёд дорад."],
+["Чувства и мнения|Ҳиссиёт ва фикр","😊","happy|ˈhæpi|счастливый|хушбахт;angry|ˈæŋɡri|злой|хашмгин;afraid|əˈfreɪd|испуганный|тарсида;excited|ɪkˈsaɪtɪd|взволнованный|ҳаяҷонзада;agree|əˈɡriː|соглашаться|розӣ шудан;opinion|əˈpɪnjən|мнение|фикр","I am excited about the trip.||Я взволнован поездкой.|Ман аз сафар ҳаяҷон дорам.;I agree with you.||Я согласен с тобой.|Ман бо ту розӣ ҳастам."]
+];
+const L2=[
+["Ресторан и кафе","🍽️","菜单|càidān|меню;服务员|fúwùyuán|официант;点菜|diǎn cài|заказывать блюда;好吃|hǎochī|вкусный;买单|mǎidān|счёт, расплатиться;筷子|kuàizi|палочки для еды;饿|è|голодный","请给我菜单。|Qǐng gěi wǒ càidān.|Дайте мне меню, пожалуйста.;这个菜很好吃。|Zhège cài hěn hǎochī.|Это блюдо очень вкусное."],
+["Магазин и покупки","🛍️","商店|shāngdiàn|магазин;多少钱|duōshao qián|сколько стоит;贵|guì|дорогой;便宜|piányi|дешёвый;钱|qián|деньги;要|yào|хотеть, брать;卖|mài|продавать","这个多少钱？|Zhège duōshao qián?|Сколько это стоит?;太贵了！|Tài guì le!|Слишком дорого!"],
+["Транспорт","🚌","公共汽车|gōnggòng qìchē|автобус;地铁|dìtiě|метро;出租车|chūzūchē|такси;火车|huǒchē|поезд;飞机|fēijī|самолёт;自行车|zìxíngchē|велосипед;车站|chēzhàn|остановка","我坐地铁去学校。|Wǒ zuò dìtiě qù xuéxiào.|Я еду в школу на метро.;火车站在哪儿？|Huǒchēzhàn zài nǎr?|Где вокзал?"],
+["Направления и места","🧭","左边|zuǒbian|слева;右边|yòubian|справа;前面|qiánmian|впереди;后面|hòumian|сзади;在|zài|находиться, быть в;哪儿|nǎr|где;这里|zhèlǐ|здесь","洗手间在左边。|Xǐshǒujiān zài zuǒbian.|Туалет слева.;学校在前面。|Xuéxiào zài qiánmian.|Школа впереди."]
+];
+const CR={zh:bld(L.concat(L2)),en:bld(E,1)};let LS,AW,W,CRS='zh';
+const setC=c=>{CRS=c;LS=CR[c];AW=LS.flatMap(l=>l.w);W=Object.fromEntries(AW.map(w=>[w.id,w]))};setC('zh');
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const day=(o=0)=>{const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+const cl=z=>CRS==='en'?z.replace(/[.!?,]/g,'').split(' '):[...z].filter(k=>!'，。！？、'.includes(k));
+const K='lingua_v1',D0={lang:'ru',course:'zh',bk:{},err:{},ok:0,bad:0,att:0,name:'',lvl:0,goal:50,xp:0,st:0,last:'',td:'',txp:0,known:{},done:{},cur:0};
+const load=()=>{try{return{...D0,...JSON.parse(localStorage.getItem(K)||'{}')}}catch(e){return{...D0}}};
+const save=s=>{try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}};
+let say=()=>{},SLOW=false,V=[];
+const lv=()=>{try{V=speechSynthesis.getVoices()}catch(e){}};
+try{lv();speechSynthesis.onvoiceschanged=lv}catch(e){}
+const zhv=()=>{const e=CRS==='en';return V.find(v=>(e?/^en[-_]US/i:/^zh[-_]CN/i).test(v.lang))||V.find(v=>(e?/^en/i:/^zh/i).test(v.lang))};
+function speak(t){
+ try{
+  if(!('speechSynthesis'in window)||typeof SpeechSynthesisUtterance==='undefined')return say('Озвучивание не поддерживается в этом браузере.');
+  lv();speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t),v=zhv();u.lang=CRS==='en'?'en-US':'zh-CN';u.rate=SLOW?.5:.85;
+  if(v)u.voice=v;else if(V.length)say((CRS==='en'?'Английский':'Китайский')+' голос не найден. Добавьте его в настройках устройства («Язык и речь»).');
+  u.onerror=e=>{if(e.error!=='canceled'&&e.error!=='interrupted')say('Не удалось воспроизвести звук. Проверьте громкость и настройки речи.')};
+  speechSynthesis.speak(u);
+ }catch(e){say('Ошибка озвучивания. Попробуйте ещё раз.')}
+}
+const Sp=({t})=>h('button',{className:'sp','aria-label':'Прослушать',onClick:e=>{e.stopPropagation();speak(t)}},'🔊');
+const Wr=({w,f})=>h('div',{className:'w',onClick:f},h('span',{className:'z hz'},w.z),h('div',null,h('b',{className:'pin2'},w.p),h('div',{className:'mu'},w.r)),h(Sp,{t:w.z}));
+const stat=(e,b,t)=>h('div',{className:'st',key:t},h('b',null,e+' '+b),h('span',null,t));
+const seg=(o,val,fn)=>h('div',{className:'row',style:{marginTop:10}},o.map(([k,t])=>h('button',{key:k,className:'btn'+(k===val?'':' s'),onClick:()=>fn(k)},t)));
+
+function Lesson({l,go}){return h('div',{className:'pg'},
+ h('button',{className:'bk',onClick:()=>go('lessons')},'← Все уроки'),
+ h('h1',null,l.e+' '+l.n),
+ h('div',{className:'cd'},l.w.map(w=>h(Wr,{key:w.id,w,f:()=>speak(w.z)}))),
+ h('h2',null,'Примеры предложений'),
+ l.x.map((x,i)=>h('div',{className:'cd ex',key:i},h('div',null,h('div',{className:'hz big'},x.z),h('div',{className:'pin2'},x.p),h('div',{className:'mu'},x.r)),h(Sp,{t:x.z}))),
+ h('div',{className:'row'},h('button',{className:'btn s',onClick:()=>go('cards',{sc:l.i})},'🃏 Карточки'),h('button',{className:'btn',onClick:()=>go('tests',{q:l.i})},'📝 Домашнее задание')))}
+
+function Lessons({s,go,v}){
+ if(v.l!=null)return h(Lesson,{l:LS[v.l],go});
+ return h('div',{className:'pg'},h('h1',null,'Уроки'),h('div',{className:'mu',style:{marginBottom:10}},(CRS==='en'?'Beginner A1 (1–4) → Elementary A2 (5–8) → Pre-Intermediate (9–12). ':'Начальный (1–4) → HSK 1 (5–16); HSK 2 и HSK 3 — в разработке. ')+'Следующий урок открывается после домашнего задания (минимум 80%).'),LS.map(l=>{const k=l.w.filter(w=>s.known[w.id]).length;
+  return h('button',{key:l.i,className:'cd les'+(un(s.done,l.i)?'':' lk'),onClick:()=>go('lessons',{l:l.i})},h('span',{className:'em'},l.e),
+   h('div',null,h('b',null,(l.i+1)+'. '+l.n),h('div',{className:'mu'},LVN(l.i)+' · '+k+' из '+l.w.length+' слов'+(s.done[l.i]!=null?' · тест '+s.done[l.i]+'%':'')),h('div',{className:'bar'},h('i',{style:{width:k/l.w.length*100+'%'}}))),(s.done[l.i]||0)>=80?'✅':un(s.done,l.i)?'›':'🔒')}))}
+
+function Home({s,setS,go,st,sw}){
+ const nk=Object.keys(s.known).length,tx=s.td===day()?s.txp:0,p=Math.min(100,tx/s.goal*100),l=LS[s.cur]||LS[0];
+ return h('div',{className:'pg'},
+  h('div',{className:'hero'},h('button',{className:'chip',style:{float:'right',minHeight:36,padding:'0 12px',fontSize:14,fontWeight:700},onClick:()=>setS(x=>({...x,lang:x.lang==='tg'?'ru':'tg'}))},s.lang==='tg'?'Русский':'Тоҷикӣ'),h('div',null,'Привет'+(s.name?', '+s.name:'')+'! 👋'),h('h1',{className:'hz'},(CRS==='en'?'Hello!':'你好！')+' Продолжим?'),
+   h('div',{className:'gl'},h('span',null,'Цель дня'),h('b',null,tx+' / '+s.goal+' XP')),h('div',{className:'bar'},h('i',{style:{width:p+'%'}})),
+   p>=100&&h('div',{style:{marginTop:10}},'🎉 Цель на сегодня выполнена!')),
+  h('div',{className:'chips'},[['zh','🇨🇳 中文'],['en','🇬🇧 English']].map(([k,t])=>h('button',{key:k,className:'chip'+((s.course||'zh')===k?' on':''),onClick:()=>sw(k)},t))),h('div',{className:'stats'},stat('📖',nk,'слов выучено'),stat('⚡',s.xp,'XP'),stat('🔥',st,'дней подряд')),
+  h('button',{className:'btn',onClick:()=>go('lessons',{l:l.i})},'▶ Продолжить: '+l.n),
+  h('div',{className:'row',style:{marginTop:14}},h('button',{className:'btn s',onClick:()=>go('cards',{sc:'all'})},'🃏 Повторить'),h('button',{className:'btn s',onClick:()=>go('tests',{q:'mix'})},'🎯 Быстрый тест')),h('div',{className:'row',style:{marginTop:12}},h('button',{className:'btn s',onClick:()=>go('write')},'✍️ Письмо'),h('button',{className:'btn s',onClick:()=>go('sound')},'🔊 Произношение')))}
+
+function Cards({s,add,v,go}){
+ const sc=v.sc??'all',pool=sc==='all'?AW.filter(w=>un(s.done,w.id/20|0)):LS[sc].w;
+ const[Q,setQ]=useState(()=>sh(pool.filter(w=>!s.known[w.id]).map(w=>w.id))),[rv,setRv]=useState(false),[n,setN]=useState(0);
+ const tot=pool.length,left=Q.length,w=W[Q[0]];
+ const nx=ok=>{if(ok)add(5,x=>({known:{...x.known,[w.id]:1}}));setQ(q=>ok?q.slice(1):[...q.slice(1),q[0]]);setRv(false);setN(n+1)};
+ return h('div',{className:'pg'},h('h1',null,'Карточки'),
+  h('div',{className:'chips'},[['all','Все']].concat(LS.map(l=>[l.i,l.e])).map(([k,t])=>h('button',{key:k,className:'chip'+(String(k)===String(sc)?' on':''),onClick:()=>go('cards',{sc:k})},t))),
+  h('div',{className:'mu',style:{margin:'6px 0'}},'Осталось повторить: '+left+' из '+tot),
+  h('div',{className:'bar',style:{marginBottom:12}},h('i',{style:{width:(tot-left)/tot*100+'%'}})),
+  w?h('div',{key:n},h('div',{className:'cd fc pop'},
+    h('div',{className:'hz huge'},w.z),
+    h('div',{className:'pin'},rv||!s.lvl?w.p:'• • •'),
+    h(Sp,{t:w.z}),
+    rv?h('div',{className:'tr pop'},w.r):h('button',{className:'btn s',onClick:()=>setRv(true)},'Показать перевод')),
+   h('div',{className:'row'},h('button',{className:'btn r',onClick:()=>nx(0)},'🔁 Повторить'),h('button',{className:'btn g',onClick:()=>nx(1)},'✅ Знаю')))
+  :h('div',{className:'cd fc pop'},h('div',{className:'huge'},'🎉'),h('b',null,'Все слова выучены!'),h('p',{className:'mu'},'Можно пройти тест или повторить набор заново.'),
+    h('button',{className:'btn',onClick:()=>{add(0,x=>{const k={...x.known};pool.forEach(p=>delete k[p.id]);return{known:k}});setQ(sh(pool.map(p=>p.id)))}},'Начать заново'),
+    h('button',{className:'btn s',onClick:()=>go('tests',{q:sc})},'Пройти тест')))}
+
+function mk(q){
+ const ws=q==='mix'?AW:LS[q].w,xs=q==='mix'?LS.flatMap(l=>l.x):LS[q].x,T=['tr','hz','au'];
+ const a=sh(ws).slice(0,6).map((w,i)=>({t:T[i%3],w,o:sh([w,...sh(AW.filter(y=>y.id!==w.id&&y.r!==w.r&&y.p!==w.p)).slice(0,3)])}));
+ return sh(a).concat(sh(xs).slice(0,2).map(x=>({t:'sn',x})));
+}
+const TT={tr:'Выберите перевод',get hz(){return CRS==='en'?'Выберите слово':'Выберите иероглиф'},au:'Нажмите 🔊 и выберите перевод',sn:'Составьте предложение'};
+function Ques({c,onAns,onNext,last}){
+ const[pk,setPk]=useState(null),[ch,setCh]=useState([]),[dn,setDn]=useState(null),sn=c.t==='sn';
+ const tk=useMemo(()=>sn?sh(cl(c.x.z)):[],[c]),tg=sn?cl(c.x.z).join(''):'';
+ const pick=y=>{if(dn!==null)return;setPk(y.id);const ok=y.id===c.w.id;setDn(ok);onAns(ok)};
+ const chk=()=>{if(dn!==null||!ch.length)return;const ok=ch.map(k=>tk[k]).join('')===tg;setDn(ok);onAns(ok)};
+ const body=sn?[
+  h('div',{className:'tr',key:'a'},c.x.r),
+  h('div',{className:'ans hz',key:'b'},ch.map(k=>h('button',{key:k,className:'ch',disabled:dn!==null,onClick:()=>setCh(ch.filter(j=>j!==k))},tk[k]))),
+  h('div',{className:'bank hz',key:'c'},tk.map((z,k)=>ch.includes(k)?null:h('button',{key:k,className:'ch',onClick:()=>dn===null&&setCh([...ch,k])},z))),
+  dn===null&&h('button',{key:'d',className:'btn',disabled:!ch.length,onClick:chk},'Проверить')
+ ]:[
+  c.t==='au'?h('div',{key:'a',style:{textAlign:'center',margin:'10px 0 20px'}},h('button',{className:'sp bigsp',onClick:()=>speak(c.w.z)},'🔊'))
+   :h('div',{key:'a',style:{textAlign:'center'}},c.t==='tr'?h('div',null,h('div',{className:'hz huge'},c.w.z),h('div',{className:'pin'},c.w.p)):h('div',{className:'tr'},c.w.r)),
+  ...c.o.map(y=>h('button',{key:y.id,className:'o'+(dn===null?'':y.id===c.w.id?' ok':y.id===pk?' no':''),onClick:()=>pick(y)},c.t==='hz'?h('span',{className:'hz',style:{fontSize:30}},y.z):y.r))
+ ];
+ return h('div',{className:'pop'},h('h2',null,TT[c.t]),body,
+  dn!==null&&h('div',{className:'fb '+(dn?'ok':'no'),key:'f'},dn?'🎉 Верно! +10 XP':'❌ Верный ответ: '+(sn?c.x.z+(c.x.p?' ('+c.x.p+')':''):c.w.z+' · '+c.w.p+' · '+c.w.r)),
+  dn!==null&&h('button',{className:'btn',key:'n',onClick:onNext},last?'Результат':'Далее'))}
+
+function Quiz({q,add,go}){
+ const[Q]=useState(()=>mk(q)),[i,setI]=useState(0),[n,setN]=useState(0),[R,setR]=useState(false);
+ const p=Math.round(n/Q.length*100);
+ const onAns=ok=>{if(ok){setN(x=>x+1);add(10)}};
+ const nx=()=>{if(i+1<Q.length)setI(i+1);else{setR(true);add(p>=70?20:0,x=>q==='mix'||typeof q!=='number'?{}:{done:{...x.done,[q]:Math.max(x.done[q]||0,p)}})}};
+ if(R)return h('div',{className:'pg cd fc'},h('div',{className:'huge'},p>=70?'🏆':'💪'),h('h1',null,p+'%'),h('p',null,'Верно: '+n+' из '+Q.length+' · +'+(n*10+(p>=70?20:0))+' XP'),
+  h('p',{className:'mu'},p>=70?'Отличный результат! Тест засчитан.':'Нужно 70%, чтобы засчитать тест. Повторите слова и попробуйте снова.'),
+  h('button',{className:'btn',onClick:()=>go('tests',{q,r:Date.now()})},'🔁 Ещё раз'),
+  h('button',{className:'btn s',onClick:()=>go('cards',{sc:q==='mix'?'all':q})},'🃏 Повторить слова'),
+  h('button',{className:'btn s',onClick:()=>go('tests')},'К списку тестов'));
+ return h('div',{className:'pg'},h('div',{className:'gl mu'},h('button',{className:'bk',onClick:()=>go('tests')},'✕ Выйти'),h('span',null,(i+1)+' / '+Q.length)),
+  h('div',{className:'bar'},h('i',{style:{width:i/Q.length*100+'%'}})),
+  h(Ques,{key:i,c:Q[i],onAns,onNext:nx,last:i+1===Q.length}))}
+
+function Tests({s,add,v,go}){
+ if(v.q!=null)return h(HW,{key:v.q+'-'+(v.r||0),q:v.q,s,add,go});
+ return h('div',{className:'pg'},h('h1',null,'Тесты'),
+  h('button',{className:'cd les',onClick:()=>go('tests',{q:'mix'})},h('span',{className:'em'},'🎯'),h('div',null,h('b',null,'Микс'),h('div',{className:'mu'},'Вопросы из всех уроков')),'›'),
+  LS.map(l=>h('button',{key:l.i,className:'cd les',onClick:()=>go('tests',{q:l.i})},h('span',{className:'em'},l.e),h('div',null,h('b',null,l.n),h('div',{className:'mu'},s.done[l.i]!=null?'Лучший результат: '+s.done[l.i]+'%':'Ещё не пройден')),(s.done[l.i]||0)>=80?'✅':un(s.done,l.i)?'›':'🔒')))}
+
+function Sound(){
+ const[f,setF]=useState(''),[sl,setSl]=useState(SLOW),[w,setW]=useState(AW[0]),q=f.trim().toLowerCase(),zv=zhv();
+ const list=AW.filter(x=>!q||x.z.includes(q)||x.p.toLowerCase().includes(q)||x.r.toLowerCase().includes(q));
+ return h('div',{className:'pg'},h('h1',null,'Произношение'),
+  !('speechSynthesis'in window)&&h('div',{className:'cd warn'},'⚠️ Этот браузер не поддерживает озвучивание. Откройте приложение в Chrome или Safari.'),
+  h('div',{className:'cd fc'},h('div',{className:'hz huge'},w.z),h('div',{className:'pin'},w.p),h('div',{className:'tr'},w.r),h('button',{className:'btn',onClick:()=>speak(w.z)},'🔊 Прослушать ещё раз')),
+  h('button',{className:'btn s',onClick:()=>{SLOW=!SLOW;setSl(SLOW)}},'🐢 Медленное произношение: '+(sl?'вкл':'выкл')),
+  h('div',{className:'mu sm'},zv?'Голос: '+zv.name+' ('+zv.lang+')':(CRS==='en'?'Английский голос не найден — используется голос по умолчанию (en-US).':'Китайский голос не найден — используется голос по умолчанию (zh-CN).')),
+  h('input',{className:'in',placeholder:CRS==='en'?'Поиск: слово или перевод':'Поиск: иероглиф, пиньинь, перевод',value:f,onChange:e=>setF(e.target.value)}),
+  h('div',{className:'cd'},list.length?list.map(x=>h(Wr,{key:x.id,w:x,f:()=>{setW(x);speak(x.z)}})):h('div',{className:'mu'},'Ничего не найдено')))}
+
+function Prog({s,st,go}){
+ const nk=Object.keys(s.known).length,nd=LS.filter(l=>(s.done[l.i]||0)>=80).length,pc=Math.round(nk/AW.length*60+nd/LS.length*40),tx=s.td===day()?s.txp:0;
+ return h('div',{className:'pg'},h('h1',null,'Прогресс'),
+  h('div',{className:'hero'},h('div',null,'Курс '+(CRS==='en'?'English':'HSK 1')+' пройден на'),h('h1',null,pc+'%'),h('div',{className:'bar'},h('i',{style:{width:pc+'%'}}))),
+  h('div',{className:'stats'},stat('📖',nk+'/'+AW.length,'слов выучено'),stat('🏅',nd+'/'+LS.length,'тестов сдано'),stat('⚡',s.xp,'XP всего'),stat('🔥',st,'дней подряд'),stat('🎯',tx+'/'+s.goal,'XP сегодня'),stat('✅',((s.ok||0)+(s.bad||0)?Math.round((s.ok||0)/((s.ok||0)+(s.bad||0))*100):0)+'%','правильных'),stat('❌',s.bad||0,'ошибок'),stat('📝',s.att||0,'попыток ДЗ'),stat('🏁',LVN(Math.max(0,LS.findIndex((l,i)=>(s.done[i]||0)<80))),'уровень')),
+  h('h2',null,'Мои ошибки'),h(Errs,{s,go}),h('h2',null,'По урокам'),h('div',{className:'cd'},LS.map(l=>{const k=l.w.filter(w=>s.known[w.id]).length;return h('div',{key:l.i},h('div',{className:'prow'},h('span',null,l.e+' '+l.n),h('b',null,k+'/'+l.w.length)),h('div',{className:'bar'},h('i',{style:{width:k/l.w.length*100+'%'}})))})))}
+
+function Prof({s,setS,go}){
+ const[cf,setCf]=useState(false),u=o=>setS(x=>({...x,...o}));
+ return h('div',{className:'pg'},h('h1',null,'Профиль'),
+  h('div',{className:'cd'},h('b',null,'Имя ученика'),h('input',{className:'in',value:s.name,maxLength:20,placeholder:'Как вас зовут?',onChange:e=>u({name:e.target.value})})),
+  h('div',{className:'cd'},h('b',null,'Забон / Язык'),seg([['ru','Русский'],['tg','Тоҷикӣ']],s.lang,v=>u({lang:v}))),h('div',{className:'cd'},h('b',null,'Уровень'),seg([[0,'Новичок'],[1,'Продолжающий']],s.lvl,v=>u({lvl:v})),h('div',{className:'mu sm'},s.lvl?'Пиньинь на карточках скрыт, пока вы не покажете перевод.':'Пиньинь на карточках виден всегда.')),
+  h('div',{className:'cd'},h('b',null,'Ежедневная цель'),seg([[20,'20 XP'],[50,'50 XP'],[100,'100 XP']],s.goal,v=>u({goal:v}))),
+  cf?h('div',{className:'cd'},h('p',null,'Будут удалены XP, серия, выученные слова и результаты тестов. Продолжить?'),h('div',{className:'row'},h('button',{className:'btn s',onClick:()=>setCf(false)},'Отмена'),h('button',{className:'btn r',onClick:()=>{setS({...D0,name:s.name,lvl:s.lvl,goal:s.goal,lang:s.lang,course:s.course});setCf(false);say('Прогресс сброшен');go('home')}},'Сбросить')))
+   :h('button',{className:'btn r',onClick:()=>setCf(true)},'🗑 Сбросить прогресс'))}
+
+const TABS=[['home','🏠','Главная'],['lessons','📚','Уроки'],['cards','🃏','Карточки'],['tests','✅','Задания'],['write','✍️','Письмо'],['prog','📊','Прогресс'],['prof','👤','Профиль']];
+const LVN=i=>CRS==='en'?['A1','A2','A2+'][i>>2]:i<4?'Начальный':'HSK 1';
+const un=(d,i)=>i<1||(d[i-1]||0)>=80;
+const nz=x=>String(x).toLowerCase().replace(/ё/g,'е').replace(/[\s.,!?;:'’"«»()\-–—。，！？、]/g,'');
+const MK={a:'āáǎà',e:'ēéěè',i:'īíǐì',o:'ōóǒò',u:'ūúǔù','ü':'ǖǘǚǜ'};
+const mark=(s,t)=>{if(t>4)return s;const k=(s.match(/[ae]/)||[])[0]||(s.includes('ou')?'o':[...s].reverse().find(c=>'iouü'.includes(c)));return k?s.replace(k,MK[k][t-1]):s};
+const p2m=x=>x.toLowerCase().replace(/v/g,'ü').replace(/([a-zü]+)([1-5])/g,(m,s,t)=>mark(s,+t)).normalize('NFC').replace(/[\s'’]/g,'');
+const bs=x=>x.toLowerCase().replace(/v/g,'u').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
+const pickW=(a,n,er)=>{a=[...a];const r=[],f=w=>1+3*(er[w.id]||0);while(r.length<n&&a.length){let u=Math.random()*a.reduce((t,w)=>t+f(w),0),k=0;for(;k<a.length-1;k++){u-=f(a[k]);if(u<0)break}r.push(a.splice(k,1)[0])}return r};
+const upd=(x,id,ok)=>{const e={...x.err};if(id!=null){if(!ok)e[id]=(e[id]||0)+1;else if(e[id]>1)e[id]--;else delete e[id]}return{err:e,ok:(x.ok||0)+(ok?1:0),bad:(x.bad||0)+(ok?0:1)}};
+function chkA(c,v){
+ const w=c.w,en=CRS==='en',cy=/[а-яё]/i.test(v);
+ if(c.t==='zr'){const vs=w.r.split(/[,(;]/).map(nz).filter(Boolean);if(vs.includes(nz(v))||nz(v)===nz(w.r))return{ok:1};
+  return{ok:0,exp:'Правильный перевод: «'+w.r+'». '+(cy?'Слово '+w.z+(w.p?' ('+w.p+')':'')+' переводится именно так — проверьте значение и запомните его.':'Здесь нужен перевод на русский язык, а не '+(/[a-z]/i.test(v)?'латиница':'иероглифы')+'.')}}
+ if(c.t==='rz'){if(nz(v)===nz(w.z))return{ok:1};
+  if(!en&&(p2m(v)===p2m(w.p)||bs(v)===bs(w.p)))return{ok:1,exp:'Принято как пиньинь. Иероглифы: '+w.z+'.'};
+  return{ok:0,exp:'Правильно: '+w.z+(w.p?' ('+w.p+')':'')+'. '+(cy?'Нужно писать '+(en?'по-английски':'по-китайски (иероглифами или пиньинь)')+', а не по-русски.':en?'Проверьте написание слова по буквам.':'Если нет китайской клавиатуры, можно ввести пиньинь латиницей.')}}
+ if(p2m(v)===p2m(w.p))return{ok:1};
+ return{ok:0,exp:'Правильно: '+w.p+'. '+(bs(v)===bs(w.p)?'Слоги верные, но тоны не совпали или не указаны. Тоны: ā — 1-й (ровный), á — 2-й (восходящий), ǎ — 3-й (нисходяще-восходящий), à — 4-й (нисходящий). Можно вводить цифрами: ni3 hao3.':'Звуки не совпали — нажмите 🔊 и послушайте слово ещё раз.')}
+}
+function Typed({c,onAns,onNext,last}){
+ const[v,setV]=useState(''),[r,setR]=useState(null),w=c.w,en=CRS==='en';
+ const ck=()=>{if(r||!v.trim())return;const x=chkA(c,v);setR(x);onAns(!!x.ok,{ans:v,exp:x.exp})};
+ const T={zr:'Переведите на русский',rz:en?'Напишите по-английски':'Напишите по-китайски (иероглифы или пиньинь)',py:'Напишите пиньинь с тонами'};
+ return h('div',{className:'pop'},h('h2',null,T[c.t]),
+  h('div',{style:{textAlign:'center'}},c.t==='rz'?h('div',{className:'tr'},w.r):h('div',null,h('div',{className:'hz huge'},w.z),c.t==='zr'&&w.p?h('div',{className:'pin'},w.p):null,h(Sp,{t:w.z}))),
+  h('input',{className:'in',value:v,disabled:!!r,autoFocus:true,autoCapitalize:'off',autoCorrect:'off',spellCheck:false,placeholder:c.t==='py'?'nǐ hǎo или ni3 hao3':'Ваш ответ',onChange:e=>setV(e.target.value),onKeyDown:e=>e.key==='Enter'&&ck()}),
+  !r&&h('button',{className:'btn',disabled:!v.trim(),onClick:ck},'Проверить'),
+  r&&h('div',{className:'fb '+(r.ok?'ok':'no')},r.ok?'🎉 Верно! +10 XP':'❌ Неверно',r.exp&&h('div',{style:{fontWeight:400,marginTop:6}},r.exp)),
+  r&&h('button',{className:'btn',onClick:onNext},last?'Результат':'Далее'))}
+function mkh(q,s){
+ const er=s.err||{},dn=s.done||{},mix=q==='mix',ws=mix?AW.filter(w=>un(dn,w.id/20|0)):LS[q].w,xs=mix?LS.flatMap((l,i)=>un(dn,i)?l.x:[]):LS[q].x,
+  T=CRS==='en'?['tr','rz','zr','hz','au','rz','zr','tr','hz','au']:['tr','rz','zr','py','hz','au','rz','zr','py','tr'];
+ let p=[];while(p.length<10)p=p.concat(pickW(ws,Math.min(ws.length,10-p.length),er));
+ if(!mix&&q>0)p=p.concat(pickW(AW.filter(w=>(w.id/20|0)<q),2,er));
+ const o=w=>sh([w,...sh(AW.filter(y=>y.id!==w.id&&y.r!==w.r&&y.p!==w.p)).slice(0,3)]);
+ return sh(p.map((w,i)=>({t:i>=10?(i%2?'zr':'tr'):T[i],w,o:o(w)}))).concat(sh(xs).slice(0,2).map(x=>({t:'sn',x})))}
+function HW({q,s,add,go}){
+ const[Q]=useState(()=>mkh(q,s)),[i,setI]=useState(0),[n,setN]=useState(0),[R,setR]=useState(false),[ms,setMs]=useState([]);
+ const c=Q[i],p=Math.round(n/Q.length*100),pass=p>=80,num=typeof q==='number';
+ const onAns=(ok,info)=>{if(ok)setN(x=>x+1);else setMs(m=>[...m,{c,i:info}]);add(ok?10:0,x=>upd(x,c.w&&c.w.id,ok))};
+ const nx=()=>{if(i+1<Q.length)return setI(i+1);setR(true);add(pass?20:0,x=>({att:(x.att||0)+1,...(num?{done:{...x.done,[q]:Math.max(x.done[q]||0,p)}}:{})}))};
+ if(R)return h('div',{className:'pg'},h('div',{className:'cd fc'},h('div',{className:'huge'},pass?'🏆':'💪'),h('h1',null,p+'%'),
+   h('p',null,'Верно: '+n+' из '+Q.length+' · ошибок: '+ms.length),
+   h('p',{className:'mu'},!num?'Тренировка завершена.':pass?'Домашнее задание выполнено! '+(q+1<LS.length?'Следующий урок открыт 🔓':'Вы прошли все доступные уроки курса!'):'Нужно минимум 80%, чтобы открыть следующий урок. Разберите ошибки и попробуйте снова.'),
+   pass&&num&&q+1<LS.length&&h('button',{className:'btn g',onClick:()=>go('lessons',{l:q+1})},'▶ Открыть урок '+(q+2)),
+   h('button',{className:'btn',onClick:()=>go('tests',{q,r:Date.now()})},'🔁 Повторить задание'),
+   h('button',{className:'btn s',onClick:()=>go('tests')},'К списку заданий')),
+  ms.length>0&&h('h2',null,'Ваши ошибки'),
+  ms.map((m,k)=>h('div',{key:k,className:'cd'},h('div',{className:'hz big'},m.c.t==='sn'?m.c.x.z:m.c.w.z),h('div',null,'✅ '+(m.c.t==='sn'?m.c.x.r:m.c.w.p+' · '+m.c.w.r)),m.i&&m.i.ans?h('div',{className:'mu'},'Ваш ответ: '+m.i.ans):null,m.i&&m.i.exp?h('div',{className:'mu'},m.i.exp):null)));
+ return h('div',{className:'pg'},h('div',{className:'gl mu'},h('button',{className:'bk',onClick:()=>go('tests')},'✕ Выйти'),h('span',null,(i+1)+' / '+Q.length)),h('div',{className:'bar'},h('i',{style:{width:i/Q.length*100+'%'}})),
+  h(c.t==='rz'||c.t==='zr'||c.t==='py'?Typed:Ques,{key:i,c,onAns,onNext:nx,last:i+1===Q.length}))}
+function Prac({m,s,add}){
+ const gen=()=>{const dn=s.done||{},er=s.err||{};let ws=AW.filter(w=>un(dn,w.id/20|0));if(m==='err'){const e=ws.filter(w=>er[w.id]);if(e.length)ws=e}
+  const T=m==='mix'?(CRS==='en'?['rz','zr']:['rz','zr','py']):[m];return{t:T[Math.floor(Math.random()*T.length)],w:pickW(ws,1,er)[0]}};
+ const[c,setC2]=useState(gen),[k,setK]=useState(0);
+ return h(Typed,{key:k,c,last:false,onAns:ok=>add(ok?10:0,x=>upd(x,c.w.id,ok)),onNext:()=>{setC2(gen());setK(k+1)}})}
+function Write({s,add,v}){
+ const[m,setM]=useState(v.m||'mix'),en=CRS==='en',M=[['mix','🎲 Все'],['rz',en?'Рус → Eng':'Рус → 汉字'],['zr',en?'Eng → Рус':'汉字 → Рус']].concat(en?[]:[['py','Пиньинь']],[['err','❌ Ошибки']]);
+ return h('div',{className:'pg'},h('h1',null,'Письмо'),
+  h('div',{className:'chips'},M.map(([k,t])=>h('button',{key:k,className:'chip'+(m===k?' on':''),onClick:()=>setM(k)},t))),
+  h('div',{className:'mu sm',style:{marginBottom:10}},'Вводите ответы с клавиатуры. Пиньинь можно писать с тонами (nǐ hǎo) или цифрами (ni3 hao3). Слова, в которых вы ошибаетесь, встречаются чаще.'),
+  m==='err'&&!Object.keys(s.err||{}).length?h('div',{className:'cd fc pop'},h('div',{className:'huge'},'🎉'),h('b',null,'Ошибок пока нет'),h('button',{className:'btn',onClick:()=>setM('mix')},'Тренироваться со всеми словами')):h(Prac,{key:m,m,s,add}))}
+function Errs({s,go}){
+ const e=Object.keys(s.err||{}).map(id=>W[id]).filter(Boolean).sort((a,b)=>s.err[b.id]-s.err[a.id]);
+ return h('div',{className:'cd'},e.length?[e.slice(0,10).map(w=>h('div',{key:w.id,className:'w'},h('span',{className:'z hz'},w.z),h('div',null,h('b',{className:'pin2'},w.p),h('div',{className:'mu'},w.r)),h('b',null,'×'+s.err[w.id]),h(Sp,{t:w.z}))),h('button',{className:'btn',key:'b',style:{marginTop:10},onClick:()=>go('write',{m:'err'})},'✍️ Тренировать ошибки')]:h('div',{className:'mu'},'Ошибок пока нет 🎉'))}
+const PG={home:Home,lessons:Lessons,cards:Cards,tests:Tests,sound:Sound,write:Write,prog:Prog,prof:Prof};
+function App(){
+ const[s,setS]=useState(load),[v,setV]=useState({tab:'home'}),[t,setT]=useState('');
+ say=m=>{setT(m);clearTimeout(window.__t);window.__t=setTimeout(()=>setT(''),3500)};
+ LANG=s.lang||'ru';if(CRS!==(s.course||'zh'))setC(s.course||'zh');useEffect(()=>{save(s)},[s]);
+ const add=(n,f)=>setS(x=>{const d=day();return{...x,...(f?f(x):{}),xp:x.xp+n,st:x.last===d?x.st:(x.last===day(-1)?x.st+1:1),last:d,td:d,txp:(x.td===d?x.txp:0)+n}});
+ const go=(tab,o={})=>{const li=[o.l,o.sc,o.q].find(x=>typeof x==='number');if(li>0&&!un(s.done,li)){say('🔒 Сначала выполните домашнее задание урока '+li+' (минимум 80%).');return}setV({tab,...o});if(li!==undefined)setS(x=>({...x,cur:li}));window.scrollTo(0,0)};
+ const sw=c=>{setS(x=>(x.course||'zh')===c?x:{...x,bk:{...x.bk,[x.course||'zh']:{known:x.known,done:x.done,cur:x.cur,err:x.err}},...((x.bk||{})[c]||{known:{},done:{},cur:0,err:{}}),course:c});go('home')};
+ const st=s.last===day()||s.last===day(-1)?s.st:0,C=PG[v.tab];
+ return h(React.Fragment,null,
+  h('main',{className:'app'+(CRS==='en'?' en':'')},h(C,{s,setS,add,go,v,st,sw,key:v.tab+':'+(v.sc??'')})),
+  h('nav',null,TABS.map(([k,e,n])=>h('button',{key:k,className:v.tab===k?'on':'','aria-label':n,onClick:()=>go(k)},h('span',null,e),n))),
+  t&&h('div',{className:'toast',role:'status'},t))}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>
